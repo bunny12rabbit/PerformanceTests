@@ -63,7 +63,7 @@ namespace Benchmarks
             builder.AppendLine($"<color=orange>{benchmark.BenchmarkName} x {Iterations}</color>");
 
             foreach (var result in benchmark.RunBenchmark(Iterations))
-                builder.AppendLine($"{result.Name}: {result.Result}ms");
+                builder.AppendLine($"{result.Name}: {result.Result}ms, allocCount: {result.AllocCount}");
 
             _resultLabel.text = builder.ToString();
         }

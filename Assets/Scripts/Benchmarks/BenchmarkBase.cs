@@ -21,11 +21,16 @@ namespace Benchmarks
             {
                 var watch = Stopwatch.StartNew();
 
-                for (var i = 0; i < iterations; i++)
-                    data.Action();
+                var allocCount = AllocCounter.Instrument(() =>
+                {
+                    for (var i = 0; i < iterations; i++)
+                        data.Action();
 
-                watch.Stop();
-                data.Result = watch.ElapsedMilliseconds;
+                    watch.Stop();
+                    data.Result = watch.ElapsedMilliseconds;
+                });
+
+                data.AllocCount = allocCount;
                 return data;
             }
         }
